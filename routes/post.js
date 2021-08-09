@@ -15,6 +15,7 @@ const {
 
 router.post('/post', createPost)
 router.get('/post', getPost)
+router.get('/post/:slug', singlePost)
 router.put('/post/:slug', updatePost)
 router.delete('/post/:slug', deletePost)
 
