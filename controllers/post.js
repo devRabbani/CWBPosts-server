@@ -1,7 +1,7 @@
 const Post = require('../models/post')
 const slugify = require('slugify')
 
-exports.create = (req, res) => {
+exports.createPost = (req, res) => {
   const { title, content, user } = req.body
   const slug = slugify(title)
 
@@ -31,5 +31,46 @@ exports.create = (req, res) => {
     }
 
     res.json(suc)
+  })
+}
+
+exports.getPost = (req, res) => {
+  Post.find({})
+    .limit(10)
+    .sort({ createdAt: -1 })
+    .exec((error, data) => {
+      if (error) console.log(error)
+      res.json(data)
+    })
+}
+
+exports.singlePost = (req, res) => {
+  const { slug } = req.params
+  Post.findOne({ slug }).exec((error, data) => {
+    if (error) console.log(error)
+    res.json(data)
+  })
+}
+
+exports.updatePost = (req, res) => {
+  const { slug } = req.params
+  const { title, content, user } = req.body
+
+  Post.findOneAndUpdate({ slug }, { title, content, user }, { new: true }).exec(
+    (err, data) => {
+      if (err) console.loh('Error on update try again')
+      res.json(data)
+    }
+  )
+}
+
+exports.deletePost = (req, res) => {
+  const { slug } = req.params
+
+  Post.findOneAndRemove({ slug }).exec((err, data) => {
+    if (err) console.loh('Error on delete try again')
+    res.json({
+      message: 'Deleted Succesfull',
+    })
   })
 }

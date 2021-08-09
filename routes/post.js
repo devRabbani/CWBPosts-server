@@ -3,10 +3,19 @@ const router = express.Router()
 
 //import Controllers
 
-const { create } = require('../controllers/post')
+const {
+  createPost,
+  getPost,
+  singlePost,
+  updatePost,
+  deletePost,
+} = require('../controllers/post')
 
 //routes
 
-router.post('/post', create)
+router.post('/post', createPost)
+router.get('/post', getPost)
+router.put('/post/:slug', updatePost)
+router.delete('/post/:slug', deletePost)
 
 module.exports = router
