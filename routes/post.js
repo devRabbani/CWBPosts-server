@@ -11,12 +11,14 @@ const {
   deletePost,
 } = require('../controllers/post')
 
+const { reqSignin } = require('../controllers/auth')
+
 //routes
 
-router.post('/post', createPost)
+router.post('/post', reqSignin, createPost)
 router.get('/post', getPost)
 router.get('/post/:slug', singlePost)
-router.put('/post/:slug', updatePost)
-router.delete('/post/:slug', deletePost)
+router.put('/post/:slug', reqSignin, updatePost)
+router.delete('/post/:slug', reqSignin, deletePost)
 
 module.exports = router

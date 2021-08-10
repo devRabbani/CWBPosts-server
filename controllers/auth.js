@@ -15,3 +15,7 @@ exports.login = (req, res) => {
     })
   }
 }
+
+exports.reqSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+})
