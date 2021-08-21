@@ -58,7 +58,7 @@ exports.updatePost = (req, res) => {
 
   Post.findOneAndUpdate({ slug }, { title, content, user }, { new: true }).exec(
     (err, data) => {
-      if (err) console.loh('Error on update try again')
+      if (err) console.log('Error on update try again')
       res.json(data)
     }
   )
@@ -68,7 +68,7 @@ exports.deletePost = (req, res) => {
   const { slug } = req.params
 
   Post.findOneAndRemove({ slug }).exec((err, data) => {
-    if (err) console.loh('Error on delete try again')
+    if (err) console.log('Error on delete try again')
     res.json({
       message: 'Deleted Succesfull',
     })
