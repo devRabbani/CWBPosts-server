@@ -1,6 +1,12 @@
 const Post = require('../models/post')
 const slugify = require('slugify')
 
+exports.getName = (req, res) => {
+  res.json({
+    name: 'hello',
+  })
+}
+
 exports.createPost = (req, res) => {
   const { title, content, user } = req.body
   const slug = slugify(title)
