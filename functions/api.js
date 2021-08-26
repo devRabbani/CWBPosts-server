@@ -1,18 +1,18 @@
 const express = require('express')
-const morgan = require('morgan')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 require('dotenv').config()
-
-//import routes
-const postRoutes = require('./routes/post')
-const authRoutes = require('./routes/auth')
+const serverless = require('serverless-http')
 
 //app
 const app = express()
+const router = express.Router()
 
-//datbase
+const postRoutes = require('../routes/post')
+const authRoutes = require('../routes/auth')
+
+//database
 
 mongoose
   .connect(process.env.DATABASE, {
@@ -26,16 +26,10 @@ mongoose
 
 //middlewares
 app.use(cors())
-app.use(morgan('dev'))
 app.use(bodyParser.json())
 
 //route middleware
 app.use('/api', postRoutes)
 app.use('/api', authRoutes)
 
-//port
-
-const port = process.env.PORT || 8000
-app.listen(port, () => {
-  console.log(`Server is started in :${port}`)
-})
+module.exports.handler = serverless(app)
