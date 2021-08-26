@@ -9,12 +9,13 @@ const {
   singlePost,
   updatePost,
   deletePost,
+  getName,
 } = require('../controllers/post')
 
 const { reqSignin } = require('../controllers/auth')
 
 //routes
-
+router.get('/rabbani', getName)
 router.post('/post', reqSignin, createPost)
 router.get('/post', getPost)
 router.get('/post/:slug', singlePost)
